@@ -5,6 +5,9 @@ import com.getarrays.employeemanager.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class EmployeeResource {
     @GetMapping("/all")
     public ResponseEntity<List<Employee>> getAllEmployee () {
         List<Employee> employees = employeeService.findAllEmployees();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
     @GetMapping("/find/{id}")
@@ -45,6 +50,4 @@ public class EmployeeResource {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    //57.49  https://www.youtube.com/watch?v=Gx4iBLKLVHk
 }
